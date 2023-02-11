@@ -34,6 +34,18 @@ class Sheet {
     return data;
   }
 
+  /**
+   * シート内のデータから、必要なデータ行のみをフィルタして抽出する関数
+   * @param {Number} col - 抽出したい列番号
+   * @param {String} value - 抽出したい値
+   * @return {Object[][]} data - 抽出結果（二次元配列もしくは空の配列）
+   */
+  filterData(col, value) {
+    const data_ = this.readData();
+    const data = data_.filter((record) => record[col - 1] === value);
+    return data;
+  }
+
 }
 
 
@@ -58,5 +70,10 @@ function test_SheetClass() {
   // シート内のデータ取得
   const data = infoSheet.readData();
   console.log(data);
+
+  // シート内のデータからidが3のデータを抽出
+  const filterdData = infoSheet.filterData(1, 3)
+  console.log(filterdData);
+
 
 }

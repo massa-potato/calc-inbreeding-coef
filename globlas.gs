@@ -24,17 +24,17 @@ const SHEET = Object.freeze({
  */
 const COLUMN = Object.freeze({
   SIRE_INFORMATION: {
-    SIRE_ID:        {COL: 'A', NO: 1, IDX: 0, NAME: 'sire_ID'},
-    NAME:           {COL: 'B', NO: 2, IDX: 1, NAME: 'name'},      // 漢字名
-    PHONETICS:      {COL: 'C', NO: 3, IDX: 2, NAME: 'phonetics'}, // 読み仮名
-    INBREEDING_COEF:{COL: 'D', NO: 4, IDX: 3, NAME: 'inbreeding_Coef'}, // 近交係数
-    CODE:           {COL: 'E', NO: 5, IDX: 4, NAME: 'code'},
-    TEN_DIGITS:     {COL: 'F', NO: 6, IDX: 5, NAME: 'tenDigits'},
-    NOTE:           {FOL: 'G', NO: 7, IDX: 6, NAME: 'note'}
+    SIRE_ID:        {COL: 1, IDX: 0, NAME: 'sire_ID'},        // A列
+    NAME:           {COL: 2, IDX: 1, NAME: 'name'},           // B列 漢字名
+    PHONETICS:      {COL: 3, IDX: 2, NAME: 'phonetics'},      // C列 読み仮名
+    INBREEDING_COEF:{COL: 4, IDX: 3, NAME: 'inbreeding_Coef'},// D列 近交係数
+    CODE:           {COL: 5, IDX: 4, NAME: 'code'},           // E列
+    TEN_DIGITS:     {COL: 6, IDX: 5, NAME: 'tenDigits'},      // F列
+    NOTE:           {COL: 7, IDX: 6, NAME: 'note'}            // G列
   },
   SIRE_GENERATIONS: {
-    SIRE_ID:        {COL: 'A', NO: 1, IDX: 0, NAME: 'sire_ID'},
-    N_GENERATION:   {COL: 'B', NO: 2, IDX: 1, NAME: 'n_Generation'},
-    N_GEN_SIRE_ID:  {COL: 'C', NO: 3, IDX: 2, NAME: 'n_gen_sire_ID'}
+    SIRE_ID:        {COL: 1, IDX: 0, NAME: 'sire_ID'},        // A列
+    N_GENERATION:   {COL: 2, IDX: 1, NAME: 'n_Generation'},   // B列
+    N_GEN_SIRE_ID:  {COL: 3, IDX: 2, NAME: 'n_gen_sire_ID'}   // C列
   }
 });
