@@ -1,61 +1,48 @@
-/**
- * 「元データ」シートのデータから、「sire_Generations」シートに書き込むための二次元配列を作成する関数
- *
- * @return {Object[][]} - sire_idに基づく種雄牛のn代祖の情報が入った二次元配列
- *
- * （参考）
- * [
- *  [ 'あきさくら', '秋桜', 6.85, 'つるみつしげ', '鶴光重', 'ひさみつしげ', '久光重', 'みつひめまる', '光姫丸', 'だい4みつしげ', '第四光重'],
- *      … 
- * ]
- * 
- *  ⬇︎
- * 
- * [
- *  [あきさくら, 1, つるみつしげ] , [あきさくら, 2, ひさみつしげ], [あきさくら, 3, みつひめまる], [あきさくら, 4, だい4みつしげ],
- *      …
- * ]
- */
-function getPedigreeArray() {
 
-  // 「元データ」シートのデータを二次元配列で取得
-  const originSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('元データ');
-  const originData_ = originSheet.getDataRange().getValues();
+function verifySireFunctions() {
+  /*
+  使用可能な関数
 
-  // oroginDataから必要な要素のみ抽出
-  const originData = originData_.map(record => [record[0], record[3], record[5], record[7], record[9]]);
-  originData.shift();//headerの削除
+  - SireInformationクラス
+    - fetchName(sireId): 種雄牛のIDから漢字名を返す関数（見つからない場合は「-」を返す）
+    - fetchPhonetics(sireId): 種雄牛のIDから読み仮名を返す関数（見つからない場合は「-」を返す）
+    - fetchInbreedingCoef(sireId): 種雄牛のIDから近交係数を返す関数（見つからない場合&近交係数の値が空欄のときは0を返す）
+    - fetchIdByName(name): 種雄牛の漢字名からIDを返す関数（見つからない場合はエラー送出）
+    - fetchIdByPhonetics(phonetics): 種雄牛の読み仮名からIDを返す関数（見つからない場合はエラー送出）
 
-  // 「sire_Generations」シートに書き込むための二次元配列retArrを作成
-  const retArr = [];
-  for(const data of originData) {
-    for(const [index, value] of data.entries()) {
-      if(index != 0) {
-        const arr = [];
-        arr[0] = data[0];
-        arr[1] = index;
-        arr[2] = value;
-        // console.log(arr);
-        retArr.push(arr);
-      }
-    }
-  }
+  - SireGenerationsクラス
+    - fetchPedgiree(sireId): 種雄牛のIDからすべての血統情報の入った二次元配列を返す関数（見つからない場合はエラー送出）
+    - fetchSire(sireId, n): 種雄牛のIDに対してn代祖のIDを返す関数（見つからない場合はエラー送出）
+  */
 
-  // console.log(retArr);
-  return retArr;
-}
 
-/**
- * 「sire_Generations」シートにデータを書き込む関数
- */
-function writePedigree(){
+  // sireIdから検索
+  const sireId = 1;
+  const n = 3;
 
-  // 「sire_Generations」シートを取得
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('test');
+  const name =  SireInformation.fetchName(sireId);
+  const phonetics =  SireInformation.fetchPhonetics(sireId);
+  const inbreedingCoef = SireInformation.fetchInbreedingCoef(sireId);
 
-  // 書き込むためのデータを作成
-  const pedigreeArray = getPedigreeArray();
+  const pedigreeArr = SireGenerations.fetchPedigree(1);
 
-  // 「sire_Generations」シートにデータを書き込む
-  sheet.getRange(2, 1, pedigreeArray.length, pedigreeArray[0].length).setValues(sire_Generations);
+  const nGenSireId = SireGenerations.fetchSire(sireId, n)
+  const nGenSireName = SireInformation.fetchName(nGenSireId);
+  const nGenSirePhonetics = SireInformation.fetchPhonetics(nGenSireId);
+  const nGenSireInbreedingCoef = SireInformation.fetchInbreedingCoef(nGenSireId);
+
+  console.log(`ID ${sireId}「${name}（${phonetics}）」の近交係数は${inbreedingCoef}です。血統情報の一覧はこちら。`);
+  console.log(pedigreeArr);
+  console.log(`ID ${sireId}「${name}」について、${n}代祖の種雄牛を検索しました。\nID ${nGenSireId}「${nGenSireName}（${nGenSirePhonetics}）」で、近交係数は${nGenSireInbreedingCoef}です。`);
+
+
+  // nameからsireIdを検索
+  const name_a = '第七波丸';
+  console.log(`「${name_a}」のIDは ${SireInformation.fetchIdByName(name_a)} です。`);
+
+
+  // phoneticsからsireIdを検索
+  const phonetics_a = 'だい7なみまる';
+  console.log(`「${phonetics_a}」のIDは ${SireInformation.fetchIdByPhonetics(phonetics_a)} です`);
+
 }
