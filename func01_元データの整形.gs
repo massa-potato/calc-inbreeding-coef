@@ -58,5 +58,5 @@ function writePedigree(){
   const pedigreeArray = getPedigreeArray();
 
   // 「sire_Generations」シートにデータを書き込む
-  sheet.getRange(2, 1, pedigreeArray.length, pedigreeArray[0].length).setValues(pedigreeArray);
+  // sheet.getRange(2, 1, pedigreeArray.length, pedigreeArray[0].length).setValues(pedigreeArray);
 }

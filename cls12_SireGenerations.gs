@@ -13,6 +13,14 @@ class SireGenerations {
     const pedigreeArr = sheet.filterData(COLUMN.SIRE_INFORMATION.SIRE_ID.COL, sireId);
     if(!pedigreeArr.length) throw new Error('sireIdに該当する情報がsire_Generationsに存在しません。'); // 見つからない場合はエラー送出
 
+    //[ [ 1, 1, 74, 'あきさくら', 'つるみつしげ' ],
+    // [ 1, 2, 100, 'あきさくら', 'ひさみつしげ' ],
+    // [ 1, 3, '#N/A', 'あきさくら', 'みつひめまる' ],
+    // [ 1, 4, 46, 'あきさくら', 'だい4みつしげ' ] ]
+
+    // nGen(何代祖か)を表す数字でのソート
+    pedigreeArr.sort((a, b) => a[1] - b[1]);
+
     return pedigreeArr;
   }
 
@@ -46,3 +54,17 @@ function test_SireGenerationsClass() {
   const nGensireId = SireGenerations.fetchSire(1, 1);
   console.log(nGensireId);
 }
+
+// function test_sortPedigreeArr() {
+//     const pedigreeArray = [
+//       [ 1, 2, 100, 'あきさくら', 'ひさみつしげ' ],
+//       [ 1, 1, 74, 'あきさくら', 'つるみつしげ' ],
+//       [ 1, 4, 46, 'あきさくら', 'だい4みつしげ' ],
+//       [ 1, 3, '#N/A', 'あきさくら', 'みつひめまる' ],
+//     ]
+
+//     // nGen(何代祖か)を表す数字でのソート
+//     pedigreeArray.sort((a, b) => a[1] - b[1]);
+
+//     console.log(pedigreeArray);
+// }

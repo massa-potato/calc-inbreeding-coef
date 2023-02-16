@@ -1,4 +1,3 @@
-
 function verifySireFunctions() {
   /*
   使用可能な関数

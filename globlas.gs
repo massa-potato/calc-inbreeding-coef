@@ -5,6 +5,9 @@
  * 
  * [TODO]
  * - [ ] SireInformationの近交係数のデータに空白が入らないようにしたい（デフォルト値0）
+ * - [x] 雌牛のデータベース（ダミー）用意
+ * - [x] fetchPedigree関数：ソートかけて返す仕様にする
+ * - [ ] fetchIdByName, fetchIdByPhonetics関数：あいまい検索（LIKE検索）（含む）仕様に対応 ※まず設計を考える
  */
 
 
