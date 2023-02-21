@@ -9,7 +9,7 @@
    - fetchIdByPhonetics(phonetics): 種雄牛の読み仮名からIDを返す関数（見つからない場合はエラー送出）
 
  - SireGenerationsクラス
-   - fetchPedgiree(sireId): 種雄牛のIDからすべての血統情報の入った二次元配列を返す関数（見つからない場合はエラー送出）
+   - fetchPedigree(sireId): 種雄牛のIDからすべての血統情報の入った二次元配列を返す関数（見つからない場合はエラー送出）
    - fetchSire(sireId, n): 種雄牛のIDに対してn代祖のIDを返す関数（見つからない場合はエラー送出）
  */
 function makeFathersSireTree() {
