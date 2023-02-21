@@ -1,5 +1,6 @@
 /**
- * 「元データ」シートのデータから、「sire_Generations」シートに書き込むための二次元配列を作成する関数
+ * 20230131 ペアプロ
+ * 「元データ」シートのデータから、「sire_Generations」シートに書き込むための二次元配列を作成する関数（テーブル整形用）
  *
  * @return {Object[][]} - sire_idに基づく種雄牛のn代祖の情報が入った二次元配列
  *
@@ -51,11 +52,11 @@ function getPedigreeArray() {
 function writePedigree(){
 
   // 「sire_Generations」シートを取得
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('test');
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('sire_Generations');
 
   // 書き込むためのデータを作成
   const pedigreeArray = getPedigreeArray();
 
   // 「sire_Generations」シートにデータを書き込む
-  sheet.getRange(2, 1, pedigreeArray.length, pedigreeArray[0].length).setValues(sire_Generations);
+  sheet.getRange(2, 1, pedigreeArray.length, pedigreeArray[0].length).setValues(pedigreeArray);
 }
