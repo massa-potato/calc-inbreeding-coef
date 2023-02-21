@@ -14,8 +14,9 @@
  */
 function makeFathersSireTree() {
   const sire_id = 4;
-  console.log(SireGenerations.fetchPedigree(4));
+  console.log(SireGenerations.fetchPedigree(sire_id));
 
+  // 関数を代入
   const sf = SireGenerations.fetchSire;
 
   const retArr = [
@@ -26,6 +27,7 @@ function makeFathersSireTree() {
   ];
   console.log(retArr);
 
+  // デバッグ用
   const namesArr = retArr.flat().map(v => SireInformation.fetchPhonetics(v));
   console.log(namesArr);
 
