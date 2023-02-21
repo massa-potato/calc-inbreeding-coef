@@ -16,8 +16,17 @@ function makeFathersSireTree() {
   const sire_id = 4;
   console.log(SireGenerations.fetchPedigree(4));
 
-  const retArr = [[sire_id], [SireGenerations.fetchPedigree(sire_id)[0][2]]];
+  const sf = SireGenerations.fetchSire;
+
+  const retArr = [
+    [sire_id],
+    [sf(sire_id, 1)],
+    [sf(sf(sire_id, 1), 1), sf(sire_id, 2)],
+    [sf(sf(sf(sire_id, 1), 1), 1), sf(sf(sire_id, 1), 2), sf(sf(sire_id, 2),1), sf(sire_id, 3)]
+  ];
   console.log(retArr);
 
+  const namesArr = retArr.flat().map(v => SireInformation.fetchPhonetics(v));
+  console.log(namesArr);
 
 }
