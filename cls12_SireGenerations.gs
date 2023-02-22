@@ -11,7 +11,7 @@ class SireGenerations {
   static fetchPedigree(sireId) {
     const sheet = new Sheet(SHEET.SIRE_GENERATIONS.NAME, SHEET.SIRE_GENERATIONS.HEADER_ROWS);
     const pedigreeArr = sheet.filterData(COLUMN.SIRE_INFORMATION.SIRE_ID.COL, sireId);
-    if(!pedigreeArr.length) throw new Error('sireIdに該当する情報がsire_Generationsに存在しません。'); // 見つからない場合はエラー送出
+    // if(!pedigreeArr.length) throw new Error('sireIdに該当する情報がsire_Generationsに存在しません。'); // 見つからない場合はエラー送出
 
     //[ [ 1, 1, 74, 'あきさくら', 'つるみつしげ' ],
     // [ 1, 2, 100, 'あきさくら', 'ひさみつしげ' ],
@@ -33,7 +33,7 @@ class SireGenerations {
   static fetchSire(sireId, n) {
     const pedigreeArr = SireGenerations.fetchPedigree(sireId);
     const data = pedigreeArr.filter((record) => record[COLUMN.SIRE_GENERATIONS.N_GENERATION.IDX] === n).flat();
-    if(!data.length) throw new Error('sireId, nに該当する情報がsire_Generationsに存在しません。'); // 見つからない場合はエラー送出
+    // if(!data.length) throw new Error('sireId, nに該当する情報がsire_Generationsに存在しません。'); // 見つからない場合はエラー送出
 
     const nGensireId = data[COLUMN.SIRE_GENERATIONS.N_GEN_SIRE_ID.IDX];
     return nGensireId;

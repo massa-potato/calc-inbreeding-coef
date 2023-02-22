@@ -56,7 +56,7 @@ class SireInformation {
   static fetchIdByName(name) {
     const sheet = new Sheet(SHEET.SIRE_INFORMATION.NAME, SHEET.SIRE_INFORMATION.HEADER_ROWS);
     const data = sheet.filterData(COLUMN.SIRE_INFORMATION.NAME.COL, name).flat();
-    if(!data.length) throw new Error('nameに該当する情報がsire_Informationに存在しません。'); // 見つからない場合はエラー送出
+    // if(!data.length) throw new Error('nameに該当する情報がsire_Informationに存在しません。'); // 見つからない場合はエラー送出
 
     const sireId = data[COLUMN.SIRE_INFORMATION.SIRE_ID.IDX];
     return sireId;
@@ -70,7 +70,7 @@ class SireInformation {
   static fetchIdByPhonetics(phonetics) {
     const sheet = new Sheet(SHEET.SIRE_INFORMATION.NAME, SHEET.SIRE_INFORMATION.HEADER_ROWS);
     const data = sheet.filterData(COLUMN.SIRE_INFORMATION.PHONETICS.COL, phonetics).flat();
-    if(!data.length) throw new Error('phoneticsに該当する情報がsire_Informationに存在しません。'); // 見つからない場合はエラー送出
+    // if(!data.length) throw new Error('phoneticsに該当する情報がsire_Informationに存在しません。'); // 見つからない場合はエラー送出
 
     const sireId = data[COLUMN.SIRE_INFORMATION.SIRE_ID.IDX];
     return sireId;
