@@ -2,15 +2,23 @@
  * sire_Generationsシート内のデータを扱うクラス
  */
 class SireGenerations {
+  constructor() {
+    this.data = this.readDataFromSpreadsheet();
+  }
+
+  readDataFromSpreadsheet() {
+    const sheet = new Sheet(SHEET.SIRE_GENERATIONS.NAME, SHEET.SIRE_GENERATIONS.HEADER_ROWS);
+    const data = sheet.readData();
+    return data;
+  }
 
   /**
    * 種雄牛のIDからすべての血統情報の入った二次元配列を返す関数（見つからない場合はエラー送出）
    * @params {Number} sireId - 情報が欲しい種雄牛のID
    * @return {Object[][]} pedigreeArr - 種雄牛の血統情報の入った二次元配列
    */
-  static fetchPedigree(sireId) {
-    const sheet = new Sheet(SHEET.SIRE_GENERATIONS.NAME, SHEET.SIRE_GENERATIONS.HEADER_ROWS);
-    const pedigreeArr = sheet.filterData(COLUMN.SIRE_INFORMATION.SIRE_ID.COL, sireId);
+  fetchPedigree(sireId) {
+    const pedigreeArr = this.data.filter(arr => arr[COLUMN.SIRE_INFORMATION.SIRE_ID.IDX] === sireId);
     // if(!pedigreeArr.length) throw new Error('sireIdに該当する情報がsire_Generationsに存在しません。'); // 見つからない場合はエラー送出
 
     //[ [ 1, 1, 74, 'あきさくら', 'つるみつしげ' ],
@@ -30,12 +38,14 @@ class SireGenerations {
    * @params {Number} n - 何代祖の情報が欲しいのか
    * @return {Number} nGenSireId - n代祖となる種雄牛のID
    */
-  static fetchSire(sireId, n) {
-    const pedigreeArr = SireGenerations.fetchPedigree(sireId);
-    const data = pedigreeArr.filter((record) => record[COLUMN.SIRE_GENERATIONS.N_GENERATION.IDX] === n).flat();
+ fetchSire(sireId, n) {
+    const pedigreeArr = this.fetchPedigree(sireId);
+    const record = pedigreeArr.find(arr => arr[COLUMN.SIRE_GENERATIONS.N_GENERATION.IDX] === n);
+
+    if(!record) return 0; // 見つからない場合は0を返す
     // if(!data.length) throw new Error('sireId, nに該当する情報がsire_Generationsに存在しません。'); // 見つからない場合はエラー送出
 
-    const nGensireId = data[COLUMN.SIRE_GENERATIONS.N_GEN_SIRE_ID.IDX];
+    const nGensireId = record[COLUMN.SIRE_GENERATIONS.N_GEN_SIRE_ID.IDX];
     return nGensireId;
   }
 
@@ -47,12 +57,14 @@ class SireGenerations {
  */
 function test_SireGenerationsClass() {
 
-  const pedigreeArr = SireGenerations.fetchPedigree(1);
+  const sg = new SireGenerations();
+
+  const pedigreeArr = sg.fetchPedigree(1);
   // const pedigree_error = SireGenerations.fetchPedigree(999);
   console.log(pedigreeArr);
 
-  const nGensireId = SireGenerations.fetchSire(1, 1);
-  console.log(nGensireId);
+  const nGenSireId = sg.fetchSire(1, 1);
+  console.log(nGenSireId);
 }
 
 // function test_sortPedigreeArr() {
